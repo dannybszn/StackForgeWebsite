@@ -1,0 +1,175 @@
+import React, { useState, useMemo } from 'react'
+import { FileText, Layout, Image, Code2, Palette, Layers, Globe, Database, Sparkles } from 'lucide-react'
+
+type Template = {
+  id: string
+  name: string
+  category: string
+  icon: React.ReactNode
+  preview?: string
+}
+
+const TEMPLATES: Template[] = [
+  {
+    id: '1',
+    name: 'Landing Page',
+    category: 'Web',
+    icon: <Globe className="w-8 h-8 text-purple-400" aria-hidden="true" />,
+  },
+  {
+    id: '2',
+    name: 'Portfolio',
+    category: 'Web',
+    icon: <Layout className="w-8 h-8 text-pink-400" aria-hidden="true" />,
+  },
+  {
+    id: '3',
+    name: 'Dashboard',
+    category: 'App',
+    icon: <Layers className="w-8 h-8 text-blue-400" aria-hidden="true" />,
+  },
+  {
+    id: '4',
+    name: 'Blog',
+    category: 'Content',
+    icon: <FileText className="w-8 h-8 text-emerald-400" aria-hidden="true" />,
+  },
+  {
+    id: '5',
+    name: 'E-commerce',
+    category: 'App',
+    icon: <Database className="w-8 h-8 text-yellow-400" aria-hidden="true" />,
+  },
+  {
+    id: '6',
+    name: 'Image Gallery',
+    category: 'Content',
+    icon: <Image className="w-8 h-8 text-indigo-400" aria-hidden="true" />,
+  },
+  {
+    id: '7',
+    name: 'Code Snippet',
+    category: 'Dev',
+    icon: <Code2 className="w-8 h-8 text-cyan-400" aria-hidden="true" />,
+  },
+  {
+    id: '8',
+    name: 'Creative Studio',
+    category: 'Design',
+    icon: <Palette className="w-8 h-8 text-fuchsia-400" aria-hidden="true" />,
+  },
+  {
+    id: '9',
+    name: 'AI Starter',
+    category: 'Dev',
+    icon: <Sparkles className="w-8 h-8 text-purple-300" aria-hidden="true" />,
+  },
+]
+
+const CATEGORIES = [
+  { label: 'All', value: 'All' },
+  ...Array.from(new Set(TEMPLATES.map(t => t.category))).map(c => ({
+    label: c,
+    value: c,
+  })),
+]
+
+const GLOW_GRADIENT = 'from-[#6D28D9] to-[#8B5CF6]'
+
+function classNames(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(' ')
+}
+
+const TemplatesGallery: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  const filteredTemplates = useMemo(() => {
+    if (selectedCategory === 'All') return TEMPLATES
+    return TEMPLATES.filter(t => t.category === selectedCategory)
+  }, [selectedCategory])
+
+  return (
+    <section
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20"
+      aria-labelledby="templates-gallery-heading"
+    >
+      <h2
+        id="templates-gallery-heading"
+        className="text-3xl md:text-4xl font-bold mb-8 text-slate-900 dark:text-white"
+      >
+        Templates Gallery
+      </h2>
+      <nav
+        className="flex flex-wrap gap-2 md:gap-4 mb-10"
+        aria-label="Template categories"
+      >
+        {CATEGORIES.map(cat => (
+          <button
+            key={cat.value}
+            type="button"
+            className={classNames(
+              'relative px-4 py-2 rounded-lg font-medium text-sm md:text-base transition-colors duration-120 outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2',
+              selectedCategory === cat.value
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow'
+                : 'bg-white/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-purple-900/30'
+            )}
+            aria-pressed={selectedCategory === cat.value}
+            tabIndex={0}
+            onClick={() => setSelectedCategory(cat.value)}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </nav>
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
+        role="list"
+        aria-label="Templates"
+      >
+        {filteredTemplates.map((template, idx) => (
+          <article
+            key={template.id}
+            tabIndex={0}
+            aria-label={`${template.name} template`}
+            className={classNames(
+              'group relative flex flex-col items-center justify-between min-h-[220px] p-6 rounded-xl md:rounded-2xl border border-white/30 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md shadow-lg transition-all duration-120 ease-out outline-none',
+              'focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2',
+              'hover:shadow-2xl hover:scale-[1.025]',
+              'before:pointer-events-none before:absolute before:inset-0 before:rounded-xl md:before:rounded-2xl before:opacity-0 before:transition-opacity before:duration-120 before:bg-gradient-to-br before:' +
+                GLOW_GRADIENT +
+                ' group-hover:before:opacity-40 group-focus-visible:before:opacity-40'
+            )}
+            style={{ animation: `fadeInUp 0.22s cubic-bezier(0.22,1,0.36,1) both`, animationDelay: `${idx * 0.06 + 0.12}s` }}
+          >
+            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 shadow-inner">
+              {template.icon}
+            </div>
+            <h3 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white mb-1 text-center">
+              {template.name}
+            </h3>
+            <p className="text-sm md:text-base text-purple-600 dark:text-purple-300 font-medium mb-2 text-center">
+              {template.category}
+            </p>
+            {/* Optionally, add a preview image here if available */}
+          </article>
+        ))}
+      </div>
+      <style>
+        {`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(32px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        `}
+      </style>
+    </section>
+  )
+}
+
+export default TemplatesGallery

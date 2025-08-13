@@ -1,0 +1,218 @@
+import React, { useRef, useState, useEffect } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+type Testimonial = {
+  avatar: string
+  name: string
+  role: string
+  text: string
+}
+
+const testimonials: Testimonial[] = [
+  {
+    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    name: 'James Carter',
+    role: 'Product Manager',
+    text: 'This platform transformed our workflow. The intuitive design and seamless integration saved us countless hours!',
+  },
+  {
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    name: 'Ava Smith',
+    role: 'Lead Designer',
+    text: 'Absolutely love the glassy UI and accessibility features. It’s a joy to use every day!',
+  },
+  {
+    avatar: 'https://randomuser.me/api/portraits/men/65.jpg',
+    name: 'Liam Johnson',
+    role: 'Full Stack Developer',
+    text: 'The smooth animations and responsive layout make this tool stand out from the rest.',
+  },
+  {
+    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+    name: 'Sophia Lee',
+    role: 'QA Engineer',
+    text: 'Accessibility is top-notch. Keyboard navigation and focus rings work perfectly!',
+  },
+  {
+    avatar: 'https://randomuser.me/api/portraits/men/77.jpg',
+    name: 'Noah Brown',
+    role: 'CTO',
+    text: 'A must-have for any modern team. The testimonial slider is a showcase of thoughtful design.',
+  },
+  {
+    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+    name: 'Olivia Davis',
+    role: 'Marketing Lead',
+    text: 'Our clients are always impressed by the slick, glassy testimonial section. Highly recommended!',
+  },
+]
+
+function getVisibleCount(width: number) {
+  if (width < 640) return 1
+  if (width < 1024) return 2
+  if (width < 1280) return 3
+  return 4
+}
+
+const TestimonialsSlider: React.FC = () => {
+  const [current, setCurrent] = useState(0)
+  const [visibleCount, setVisibleCount] = useState(getVisibleCount(window.innerWidth))
+  const sliderRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef<number | null>(null)
+  const touchEndX = useRef<number | null>(null)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setVisibleCount(getVisibleCount(window.innerWidth))
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const maxIndex = Math.max(0, testimonials.length - visibleCount)
+
+  const goTo = (idx: number) => {
+    setCurrent(Math.max(0, Math.min(idx, maxIndex)))
+  }
+
+  const next = () => goTo(current + visibleCount)
+  const prev = () => goTo(current - visibleCount)
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (document.activeElement && sliderRef.current && sliderRef.current.contains(document.activeElement)) {
+        if (e.key === 'ArrowLeft') {
+          prev()
+        } else if (e.key === 'ArrowRight') {
+          next()
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+    // eslint-disable-next-line
+  }, [current, visibleCount])
+
+  // Touch/swipe support
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+  const onTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const dx = touchEndX.current - touchStartX.current
+      if (Math.abs(dx) > 50) {
+        if (dx < 0) next()
+        else prev()
+      }
+    }
+    touchStartX.current = null
+    touchEndX.current = null
+  }
+
+  return (
+    <section
+      className="w-full py-12 md:py-16 lg:py-20 bg-transparent"
+      aria-label="Testimonials"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-0 text-[#F8FAFC]">
+            What our users say
+          </h2>
+          <div className="flex gap-4">
+            <button
+              aria-label="Previous testimonials"
+              onClick={prev}
+              disabled={current === 0}
+              className="group rounded-full border border-[#8B5CF6] bg-white/10 hover:bg-gradient-to-r hover:from-[#6D28D9] hover:to-[#8B5CF6] transition-all duration-200 ease-out p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-2 disabled:opacity-40"
+              tabIndex={0}
+              type="button"
+            >
+              <ChevronLeft className="w-6 h-6 text-[#F8FAFC] group-hover:text-white" />
+            </button>
+            <button
+              aria-label="Next testimonials"
+              onClick={next}
+              disabled={current >= maxIndex}
+              className="group rounded-full border border-[#8B5CF6] bg-white/10 hover:bg-gradient-to-r hover:from-[#6D28D9] hover:to-[#8B5CF6] transition-all duration-200 ease-out p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-2 disabled:opacity-40"
+              tabIndex={0}
+              type="button"
+            >
+              <ChevronRight className="w-6 h-6 text-[#F8FAFC] group-hover:text-white" />
+            </button>
+          </div>
+        </div>
+        <div
+          ref={sliderRef}
+          className="relative overflow-hidden"
+          tabIndex={0}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Testimonials slider"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          <ul
+            className="flex transition-transform duration-200 ease-out gap-8"
+            style={{
+              transform: `translateX(-${(100 / visibleCount) * current}%)`,
+              width: `${(100 / visibleCount) * testimonials.length}%`,
+            }}
+            aria-live="polite"
+          >
+            {testimonials.map((t, idx) => (
+              <li
+                key={t.name + t.role}
+                className={`flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-2 outline-none`}
+                style={{
+                  maxWidth: `${100 / visibleCount}%`,
+                }}
+                tabIndex={0}
+                aria-label={`Testimonial from ${t.name}, ${t.role}`}
+                role="group"
+              >
+                <div
+                  className="flex flex-col h-full bg-white/10 backdrop-blur-lg border border-white/10 rounded-[16px] shadow-lg p-8 gap-8 transition-all duration-200 ease-out hover:shadow-xl hover:border-[#8B5CF6] hover:bg-gradient-to-br hover:from-[#6D28D9]/30 hover:to-[#8B5CF6]/30 focus-within:ring-2 focus-within:ring-[#8B5CF6] focus-within:ring-offset-2"
+                >
+                  <div className="flex items-center gap-6">
+                    <img
+                      src={t.avatar}
+                      alt={`${t.name} avatar`}
+                      className="w-16 h-16 rounded-full border-2 border-[#8B5CF6] object-cover"
+                    />
+                    <div>
+                      <div className="text-lg font-semibold text-[#F8FAFC]">{t.name}</div>
+                      <div className="text-base text-[#94A3B8]">{t.role}</div>
+                    </div>
+                  </div>
+                  <blockquote className="text-base md:text-lg text-[#CBD5E1] leading-relaxed">
+                    “{t.text}”
+                  </blockquote>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex justify-center mt-8 gap-2">
+          {Array.from({ length: Math.ceil(testimonials.length / visibleCount) }).map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`w-3 h-3 rounded-full border-2 border-[#8B5CF6] transition-all duration-200 ease-out ${current === i * visibleCount ? 'bg-[#8B5CF6]' : 'bg-transparent'} focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]`}
+              onClick={() => goTo(i * visibleCount)}
+              tabIndex={0}
+              type="button"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default TestimonialsSlider

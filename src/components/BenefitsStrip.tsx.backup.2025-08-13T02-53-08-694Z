@@ -1,0 +1,76 @@
+import React from 'react'
+
+const benefits = [
+  { label: 'NoCode→Code' },
+  { label: 'Flat Fee/BYO keys' },
+  { label: '1-click Deploy' },
+]
+
+const BenefitsStrip: React.FC = () => {
+  return (
+    <section
+      aria-label="Key Benefits"
+      className="w-full flex justify-center bg-transparent"
+    >
+      <ul
+        className="
+          w-full max-w-5xl
+          flex flex-row justify-center items-center
+          gap-6 md:gap-8 lg:gap-12
+          px-4 md:px-8 lg:px-12
+          py-4 md:py-6 lg:py-8
+          md:flex-nowrap
+          flex-wrap
+          sm:flex-row
+          flex-col
+        "
+      >
+        {benefits.map((benefit, i) => (
+          <li
+            key={benefit.label}
+            className="
+              flex-1 min-w-[180px] max-w-xs
+              flex items-center justify-center
+              rounded-[16px]
+              border border-[#242A38]/80
+              bg-white/10
+              backdrop-blur-md
+              shadow-[0_2px_16px_0_rgba(109,40,217,0.05)]
+              px-6 py-4
+              text-base md:text-lg font-semibold
+              text-slate-50
+              transition
+              duration-200
+              ease-out
+              hover:shadow-[0_0_0_4px_rgba(109,40,217,0.10)]
+              hover:border-[#6D28D9]/60
+              hover:bg-white/15
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-[#6D28D9]/40
+              active:scale-[0.98]
+              select-none
+              cursor-default
+              [transition-property:box-shadow,background,border,color,transform]
+              [transition-duration:120ms]
+              [transition-timing-function:ease-out]
+              animate-fade-in
+              will-change-transform
+            "
+            style={{
+              animationDelay: `${80 + i * 40}ms`,
+              animationDuration: '200ms',
+              animationTimingFunction: 'ease-out',
+            } as React.CSSProperties}
+            tabIndex={0}
+            aria-label={benefit.label}
+          >
+            <span className="text-slate-50 md:text-slate-200">{benefit.label}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+export default BenefitsStrip

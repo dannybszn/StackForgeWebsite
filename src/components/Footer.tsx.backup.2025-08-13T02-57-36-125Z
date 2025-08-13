@@ -1,0 +1,151 @@
+import { Twitter, Github, Linkedin } from 'lucide-react'
+
+const COMPANY_NAME = 'StackForge'
+
+const productLinks = [
+  { label: 'Product', href: '/#features' },
+  { label: 'Templates', href: '/#templates' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Docs', href: '/#docs' },
+  { label: 'Blog', href: '/#blog' },
+]
+
+const companyLinks = [
+  { label: 'About', href: '/#about' },
+  { label: 'Careers', href: '/#careers' },
+  { label: 'Blog', href: '/#blog' },
+  { label: 'Contact', href: '/#contact' },
+]
+
+const legalLinks = [
+  { label: 'Terms', href: '/#terms' },
+  { label: 'Privacy', href: '/#privacy' },
+  { label: 'Security', href: '/#security' },
+]
+
+const socials = [
+  {
+    label: 'Twitter',
+    href: 'https://twitter.com/',
+    icon: Twitter,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/',
+    icon: Github,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/',
+    icon: Linkedin,
+  },
+]
+
+function Footer() {
+  return (
+    <footer
+      className="relative z-10 mt-24"
+      aria-label="Footer"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className="rounded-2xl md:rounded-3xl bg-white/10 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/60 shadow-2xl p-8 md:p-12 lg:p-16 mb-8"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-12">
+            <section className="lg:col-span-3 flex flex-col gap-2" aria-labelledby="footer-product">
+              <h2 id="footer-product" className="text-lg font-semibold text-white mb-2 tracking-tight">
+                Product
+              </h2>
+              <nav aria-label="Product links" className="flex flex-col gap-1">
+                {productLinks.map(link => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-gray-200 hover:text-purple-400 focus:text-purple-400 transition-colors rounded-lg px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent hover:bg-purple-500/10 focus:bg-purple-500/10"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
+            <section className="lg:col-span-3 flex flex-col gap-2" aria-labelledby="footer-company">
+              <h2 id="footer-company" className="text-lg font-semibold text-white mb-2 tracking-tight">
+                Company
+              </h2>
+              <nav aria-label="Company links" className="flex flex-col gap-1">
+                {companyLinks.map(link => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-gray-200 hover:text-purple-400 focus:text-purple-400 transition-colors rounded-lg px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent hover:bg-purple-500/10 focus:bg-purple-500/10"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
+            <section className="lg:col-span-2 flex flex-col gap-2" aria-labelledby="footer-legal">
+              <h2 id="footer-legal" className="text-lg font-semibold text-white mb-2 tracking-tight">
+                Legal
+              </h2>
+              <nav aria-label="Legal links" className="flex flex-col gap-1">
+                {legalLinks.map(link => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-gray-200 hover:text-purple-400 focus:text-purple-400 transition-colors rounded-lg px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent hover:bg-purple-500/10 focus:bg-purple-500/10"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
+            <section className="lg:col-span-4 flex flex-col gap-4" aria-labelledby="footer-socials">
+              <h2 id="footer-socials" className="text-lg font-semibold text-white mb-2 tracking-tight">
+                Socials
+              </h2>
+              <nav aria-label="Social media" className="flex flex-row gap-4">
+                {socials.map(({ label, href, icon: Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="group rounded-xl border border-white/10 bg-white/5 hover:bg-purple-500/10 focus:bg-purple-500/10 transition-all p-2 flex items-center justify-center shadow-md hover:shadow-purple-500/30 focus:shadow-purple-500/30 outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                  >
+                    <Icon className="w-6 h-6 text-gray-200 group-hover:text-purple-400 group-focus:text-purple-400 transition-colors" />
+                  </a>
+                ))}
+              </nav>
+              <div className="hidden lg:block mt-6 text-sm text-gray-400">
+                <span className="font-semibold text-white">{COMPANY_NAME}</span> — Building the future of developer productivity.
+              </div>
+            </section>
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-8">
+          <div className="text-sm text-gray-400 text-center md:text-left">
+            © 2024 <span className="font-semibold text-white">{COMPANY_NAME}</span>. All rights reserved.
+          </div>
+          <div className="flex gap-4">
+            {socials.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="rounded-xl border border-white/10 bg-white/5 hover:bg-purple-500/10 focus:bg-purple-500/10 transition-all p-2 flex items-center justify-center shadow hover:shadow-purple-500/30 focus:shadow-purple-500/30 outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                <Icon className="w-5 h-5 text-gray-300 hover:text-purple-400 focus:text-purple-400 transition-colors" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+export default Footer

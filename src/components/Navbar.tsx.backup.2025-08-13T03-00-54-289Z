@@ -1,0 +1,170 @@
+import React, { useState, useEffect } from 'react'
+import { Menu, X } from 'lucide-react'
+
+const NAV_LINKS = [
+  { name: 'Product', href: '#product' },
+  { name: 'Templates', href: '#templates' },
+  { name: 'Pricing', href: '#pricing' },
+  { name: 'Docs', href: '#docs' },
+  { name: 'Blog', href: '#blog' },
+]
+
+function classNames(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(' ')
+}
+
+const Navbar: React.FC = () => {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <nav
+      className={classNames(
+        'sticky top-0 z-40 w-full transition-colors duration-200 ease-out',
+        scrolled
+          ? 'bg-[#13151D]/90 backdrop-blur-md border-b border-[#242A38]'
+          : 'bg-transparent'
+      )}
+      aria-label="Main navigation"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-12 items-center min-h-[64px] gap-2">
+          {/* Logo */}
+          <div className="col-span-6 sm:col-span-2 flex items-center">
+            <a
+              href="/"
+              className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9] rounded-lg px-2 py-1"
+              aria-label="StackForge Home"
+            >
+              <span className="text-2xl font-extrabold tracking-tight text-[#F8FAFC] select-none">
+                StackForge
+              </span>
+            </a>
+          </div>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden sm:flex col-span-8 justify-center gap-2">
+            <ul className="flex gap-2 md:gap-4 lg:gap-6">
+              {NAV_LINKS.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-base font-medium px-3 py-2 rounded-lg transition-colors duration-200 ease-out text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#242A38]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Desktop CTAs */}
+          <div className="hidden sm:flex col-span-4 justify-end items-center gap-2">
+            <a
+              href="#signin"
+              className="text-base font-medium px-4 py-2 rounded-lg transition-colors duration-200 ease-out text-[#CBD5E1] hover:text-[#F8FAFC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]"
+            >
+              Sign In
+            </a>
+            <a
+              href="#start"
+              className="relative group inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-base bg-gradient-to-r from-[#6D28D9]/80 to-[#8B5CF6]/80 text-[#F8FAFC] shadow-lg shadow-[#6D28D9]/20 border border-[#242A38]/60 backdrop-blur-md transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9] hover:shadow-purple-700/40 hover:from-[#6D28D9] hover:to-[#8B5CF6] hover:text-white"
+              style={{ boxShadow: '0 2px 16px 0 rgba(109,40,217,0.18)' }}
+            >
+              <span className="z-10">Start Free</span>
+              <span className="absolute inset-0 rounded-xl pointer-events-none group-hover:shadow-[0_0_16px_4px_rgba(109,40,217,0.35)] transition-all duration-200 ease-out" />
+            </a>
+          </div>
+
+          {/* Mobile Hamburger */}
+          <div className="flex sm:hidden col-span-6 justify-end">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#242A38]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9] transition-colors duration-200 ease-out"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((v) => !v)}
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={classNames(
+          'sm:hidden fixed inset-x-0 top-0 z-50 transition-all duration-200 ease-out',
+          mobileOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        )}
+      >
+        <div className="bg-[#13151D]/95 backdrop-blur-xl border-b border-[#242A38] shadow-xl">
+          <div className="flex items-center justify-between px-4 py-4">
+            <a
+              href="/"
+              className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9] rounded-lg px-2 py-1"
+              aria-label="StackForge Home"
+            >
+              <span className="text-2xl font-extrabold tracking-tight text-[#F8FAFC] select-none">
+                StackForge
+              </span>
+            </a>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#242A38]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9] transition-colors duration-200 ease-out"
+              aria-label="Close menu"
+              onClick={() => setMobileOpen(false)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <ul className="flex flex-col gap-1 px-4 pb-4">
+            {NAV_LINKS.map((link) => (
+              <li key={link.name}>
+                <a
+                  href={link.href}
+                  className="block w-full text-base font-medium px-4 py-3 rounded-lg transition-colors duration-200 ease-out text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#242A38]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href="#signin"
+                className="block w-full text-base font-medium px-4 py-3 rounded-lg transition-colors duration-200 ease-out text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#242A38]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]"
+                onClick={() => setMobileOpen(false)}
+              >
+                Sign In
+              </a>
+            </li>
+            <li>
+              <a
+                href="#start"
+                className="relative group block w-full text-center mt-2 px-5 py-3 rounded-xl font-semibold text-base bg-gradient-to-r from-[#6D28D9]/80 to-[#8B5CF6]/80 text-[#F8FAFC] shadow-lg shadow-[#6D28D9]/20 border border-[#242A38]/60 backdrop-blur-md transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9] hover:shadow-purple-700/40 hover:from-[#6D28D9] hover:to-[#8B5CF6] hover:text-white"
+                style={{ boxShadow: '0 2px 16px 0 rgba(109,40,217,0.18)' }}
+                onClick={() => setMobileOpen(false)}
+              >
+                <span className="z-10">Start Free</span>
+                <span className="absolute inset-0 rounded-xl pointer-events-none group-hover:shadow-[0_0_16px_4px_rgba(109,40,217,0.35)] transition-all duration-200 ease-out" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+export default Navbar

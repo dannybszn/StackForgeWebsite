@@ -1,0 +1,154 @@
+import React, { useState, useRef, KeyboardEvent, Ref } from 'react'
+import { ChevronDown } from 'lucide-react'
+
+type FAQ = {
+  question: string
+  answer: string
+}
+
+const faqs: FAQ[] = [
+  {
+    question: 'What is StackForge?',
+    answer:
+      'StackForge is a modern platform for rapidly building, deploying, and managing full-stack applications with best-in-class developer experience.',
+  },
+  {
+    question: 'How does StackForge improve developer productivity?',
+    answer:
+      'StackForge automates project scaffolding, dependency management, and CI/CD setup, letting you focus on building features instead of boilerplate.',
+  },
+  {
+    question: 'Which technologies does StackForge support?',
+    answer:
+      'StackForge supports popular frameworks like React, Next.js, Vue, Svelte, Node.js, Python, and more, with seamless integration for databases and cloud providers.',
+  },
+  {
+    question: 'Is StackForge suitable for teams?',
+    answer:
+      'Absolutely! StackForge offers collaborative tools, role-based access, and project templates designed for both solo developers and teams.',
+  },
+  {
+    question: 'Can I deploy to my own cloud provider?',
+    answer:
+      'Yes, StackForge allows you to deploy to AWS, GCP, Azure, Vercel, Netlify, and custom servers with simple configuration.',
+  },
+  {
+    question: 'How secure is StackForge?',
+    answer:
+      'StackForge follows industry best practices for security, including encrypted secrets management, audit logs, and regular vulnerability scanning.',
+  },
+]
+
+const FAQAccordion: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const headersRef = useRef<Array<HTMLButtonElement | null>>([])
+
+  const handleHeaderKeyDown = (
+    e: KeyboardEvent<HTMLButtonElement>,
+    idx: number
+  ) => {
+    const lastIdx = faqs.length - 1
+    switch (e.key) {
+      case 'ArrowDown': {
+        e.preventDefault()
+        const next = idx === lastIdx ? 0 : idx + 1
+        headersRef.current[next]?.focus()
+        break
+      }
+      case 'ArrowUp': {
+        e.preventDefault()
+        const prev = idx === 0 ? lastIdx : idx - 1
+        headersRef.current[prev]?.focus()
+        break
+      }
+      case 'Home': {
+        e.preventDefault()
+        headersRef.current[0]?.focus()
+        break
+      }
+      case 'End': {
+        e.preventDefault()
+        headersRef.current[lastIdx]?.focus()
+        break
+      }
+      case 'Enter':
+      case ' ': {
+        e.preventDefault()
+        setOpenIndex(openIndex === idx ? null : idx)
+        break
+      }
+      case 'Escape': {
+        e.preventDefault()
+        setOpenIndex(null)
+        break
+      }
+    }
+  }
+
+  return (
+    <div
+      className="w-full max-w-2xl mx-auto grid gap-6 md:gap-8"
+      style={{ gridTemplateColumns: '1fr' }}
+    >
+      {faqs.map((faq, idx) => {
+        const isOpen = openIndex === idx
+        return (
+          <div
+            key={faq.question}
+            role="region"
+            aria-labelledby={`faq-header-${idx}`}
+            className="rounded-[14px] md:rounded-[16px] border border-[#242A38] bg-[rgba(19,21,29,0.7)] shadow-lg transition-shadow duration-200 focus-within:shadow-[0_0_0_4px_rgba(109,40,217,0.25)] hover:shadow-[0_0_12px_0_rgba(109,40,217,0.15)]"
+          >
+            <button
+              ref={el => {
+                headersRef.current[idx] = el
+                return undefined
+              }}
+              id={`faq-header-${idx}`}
+              aria-expanded={isOpen}
+              aria-controls={`faq-panel-${idx}`}
+              tabIndex={0}
+              className={`w-full flex items-center justify-between gap-4 px-5 py-4 md:py-5 text-left rounded-[12px] md:rounded-[14px] outline-none transition-shadow duration-150
+                text-[1.07rem] md:text-lg font-semibold tracking-tight
+                text-[#F8FAFC]
+                focus-visible:ring-2 focus-visible:ring-[#6D28D9] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent
+                `}
+              onClick={() => setOpenIndex(isOpen ? null : idx)}
+              onKeyDown={e => handleHeaderKeyDown(e, idx)}
+            >
+              <span>{faq.question}</span>
+              <ChevronDown
+                className={`w-5 h-5 shrink-0 transition-transform duration-200 ${
+                  isOpen ? 'rotate-180' : ''
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+            <div
+              id={`faq-panel-${idx}`}
+              role="region"
+              aria-labelledby={`faq-header-${idx}`}
+              className={`overflow-hidden transition-[max-height,opacity] duration-200 ease-out px-5 ${
+                isOpen
+                  ? 'max-h-40 opacity-100 py-2 md:py-3'
+                  : 'max-h-0 opacity-0 py-0'
+              }`}
+              style={{
+                transitionDuration: isOpen ? '200ms' : '180ms',
+              }}
+            >
+              <div
+                className="text-[#CBD5E1] text-[0.97rem] md:text-base leading-relaxed"
+                tabIndex={isOpen ? 0 : -1}
+              >
+                {faq.answer}
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export default FAQAccordion

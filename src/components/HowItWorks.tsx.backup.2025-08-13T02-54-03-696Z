@@ -1,0 +1,121 @@
+import React from 'react'
+import { FileText, Hammer, Send } from 'lucide-react'
+import { motion, useAnimation, useInView } from 'framer-motion'
+
+const steps = [
+  {
+    icon: FileText,
+    title: 'Describe',
+    desc: 'Tell us what you want to build. Share your vision, requirements, and goals in plain language.',
+  },
+  {
+    icon: Hammer,
+    title: 'Forge',
+    desc: 'Our system and experts craft your solution, iterating rapidly with you for clarity and precision.',
+  },
+  {
+    icon: Send,
+    title: 'Ship',
+    desc: 'Launch with confidence. Get production-ready code, docs, and ongoing support for your project.',
+  },
+]
+
+const palette = {
+  bg: 'bg-[#0E0F13]',
+  surface: 'bg-[#13151D]',
+  surfaceAlt: 'bg-[#191C26]',
+  border: 'border-[#242A38]',
+  text: 'text-[#F8FAFC]',
+  textSubtle: 'text-[#CBD5E1]',
+  textMuted: 'text-[#94A3B8]',
+  primary: 'text-[#6D28D9]',
+  primaryBg: 'bg-[#6D28D9]',
+  focus: 'focus-visible:ring-2 focus-visible:ring-[#6D28D9] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0E0F13]',
+}
+
+type StepCardProps = {
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
+  title: string
+  desc: string
+  index: number
+  animate: boolean
+}
+
+function StepCard({ icon: Icon, title, desc, index, animate }: StepCardProps) {
+  return (
+    <motion.li
+      className={`group relative flex flex-col items-center justify-start rounded-[16px] md:rounded-[12px] ${palette.surface} border ${palette.border} shadow-lg transition-shadow duration-200 hover:shadow-[0_0_0_4px_#6D28D980] hover:border-[#6D28D9] outline-none ${palette.focus} w-full h-full px-6 py-8 md:px-4 md:py-6`}
+      tabIndex={0}
+      initial={{ opacity: 0, y: 32 }}
+      animate={animate ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.22,
+        ease: [0.16, 1, 0.3, 1],
+        delay: 0.08 * index,
+      }}
+      aria-label={title}
+    >
+      <span
+        className={`flex items-center justify-center w-14 h-14 md:w-12 md:h-12 rounded-full ${palette.surfaceAlt} border ${palette.border} mb-6 md:mb-4 shadow-md group-hover:shadow-[0_0_0_4px_#6D28D980] transition-shadow duration-200`}
+        aria-hidden="true"
+      >
+        <Icon className={`w-7 h-7 md:w-6 md:h-6 ${palette.primary}`} strokeWidth={2.2} />
+      </span>
+      <h3 className={`text-xl md:text-lg font-semibold mb-2 ${palette.text}`}>{title}</h3>
+      <p className={`text-base md:text-sm ${palette.textMuted} text-center`}>{desc}</p>
+    </motion.li>
+  )
+}
+
+const HowItWorks: React.FC = () => {
+  const ref = React.useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-16% 0px' })
+  const controls = useAnimation()
+
+  React.useEffect(() => {
+    if (isInView) {
+      controls.start('visible')
+    }
+  }, [isInView, controls])
+
+  return (
+    <section
+      ref={ref}
+      aria-label="How StackForge Works"
+      className={`${palette.bg} w-full py-16 md:py-24 px-4 md:px-8`}
+    >
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+        <motion.h2
+          className={`text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center ${palette.text}`}
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+        >
+          How It Works
+        </motion.h2>
+        <motion.ol
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 w-full"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08 } },
+            hidden: {},
+          }}
+        >
+          {steps.map((step, i) => (
+            <StepCard
+              key={step.title}
+              icon={step.icon}
+              title={step.title}
+              desc={step.desc}
+              index={i}
+              animate={isInView}
+            />
+          ))}
+        </motion.ol>
+      </div>
+    </section>
+  )
+}
+
+export default HowItWorks

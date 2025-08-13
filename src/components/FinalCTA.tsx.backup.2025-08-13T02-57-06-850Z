@@ -1,0 +1,37 @@
+import React from 'react'
+
+type FinalCTAProps = {
+  headline: string
+  subtext: string
+  buttonText: string
+  onButtonClick?: () => void
+}
+
+const FinalCTA: React.FC<FinalCTAProps> = ({
+  headline,
+  subtext,
+  buttonText,
+  onButtonClick,
+}) => {
+  return (
+    <section className="w-full grid grid-cols-12 justify-center">
+      <div className="col-span-12 md:col-start-2 md:col-span-10 lg:col-start-2 lg:col-span-10 flex flex-col items-center max-w-[600px] mx-auto bg-[#13151D]/90 rounded-2xl backdrop-blur-md p-6 md:p-8 shadow-xl border border-white/5 space-y-6 md:space-y-8">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F8FAFC] text-center">
+          {headline}
+        </h2>
+        <p className="text-base md:text-lg text-[#CBD5E1] text-center">
+          {subtext}
+        </p>
+        <button
+          type="button"
+          onClick={onButtonClick}
+          className="w-full md:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] text-white font-bold text-lg shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-[#8B5CF6]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13151D] transition-all duration-120 ease-out hover:shadow-[0_0_0_4px_#6D28D9,0_8px_32px_0_#6D28D9] hover:scale-[1.03]"
+        >
+          {buttonText}
+        </button>
+      </div>
+    </section>
+  )
+}
+
+export default FinalCTA

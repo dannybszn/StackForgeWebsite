@@ -1,0 +1,153 @@
+import React from 'react'
+import {
+  Database,
+  CreditCard,
+  Lock,
+  GitBranch,
+  BarChart3,
+  Image as AssetIcon,
+} from 'lucide-react'
+
+const features = [
+  {
+    name: 'Database',
+    description: 'Reliable, scalable, and secure data storage for your app.',
+    icon: Database,
+    id: 'db',
+  },
+  {
+    name: 'Payments',
+    description: 'Seamless payment integrations for global commerce.',
+    icon: CreditCard,
+    id: 'payments',
+  },
+  {
+    name: 'Authentication',
+    description: 'Robust auth with SSO, OAuth, and multi-factor support.',
+    icon: Lock,
+    id: 'auth',
+  },
+  {
+    name: 'Git Integration',
+    description: 'Connect your repositories for automated workflows.',
+    icon: GitBranch,
+    id: 'git',
+  },
+  {
+    name: 'PostHog Analytics',
+    description: 'Actionable product analytics and event tracking.',
+    icon: BarChart3,
+    id: 'posthog',
+  },
+  {
+    name: 'Assets',
+    description: 'Manage and deliver images, videos, and files at scale.',
+    icon: AssetIcon,
+    id: 'assets',
+  },
+]
+
+function classNames(...classes: (string | boolean | undefined | null)[]) {
+  return classes.filter(Boolean).join(' ')
+}
+
+const FeaturesGrid: React.FC = () => {
+  return (
+    <section
+      aria-label="Platform Features"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12"
+    >
+      <div
+        className={classNames(
+          'grid',
+          'grid-cols-1',
+          'sm:grid-cols-2',
+          'md:grid-cols-3',
+          'gap-4',
+          'sm:gap-6',
+          'lg:gap-8'
+        )}
+        role="list"
+      >
+        {features.map((feature) => {
+          const Icon = feature.icon
+          return (
+            <article
+              key={feature.id}
+              tabIndex={0}
+              aria-labelledby={`feature-title-${feature.id}`}
+              className={classNames(
+                'group',
+                'relative',
+                'rounded-[16px]',
+                'bg-white/10',
+                'backdrop-blur-md',
+                'border',
+                'border-white/10',
+                'shadow-lg',
+                'transition-shadow',
+                'duration-120',
+                'focus:outline-none',
+                'focus-visible:ring-2',
+                'focus-visible:ring-[#6D28D9]',
+                'hover:shadow-[0_0_0_4px_rgba(109,40,217,0.18)]',
+                'hover:ring-2',
+                'hover:ring-[#6D28D9]/40',
+                'hover:z-10',
+                'outline-none',
+                'cursor-pointer',
+                'p-3',
+                'sm:p-4',
+                'md:p-6',
+                'min-h-[180px]',
+                'flex',
+                'flex-col',
+                'items-start',
+                'justify-start',
+                'transition-all'
+              )}
+            >
+              <div
+                className={classNames(
+                  'flex',
+                  'items-center',
+                  'justify-center',
+                  'rounded-[12px]',
+                  'mb-4',
+                  'w-12',
+                  'h-12',
+                  'md:w-14',
+                  'md:h-14',
+                  'bg-white/20',
+                  'backdrop-blur-sm',
+                  'shadow',
+                  'transition-transform',
+                  'duration-120',
+                  'group-hover:scale-105'
+                )}
+                aria-hidden="true"
+              >
+                <Icon
+                  className="w-7 h-7 md:w-8 md:h-8 text-[#18181b] dark:text-white"
+                  strokeWidth={2.2}
+                  aria-hidden="true"
+                />
+              </div>
+              <h3
+                id={`feature-title-${feature.id}`}
+                className="text-lg md:text-xl font-semibold text-[#18181b] dark:text-white mb-1"
+              >
+                {feature.name}
+              </h3>
+              <p className="text-sm md:text-base text-[#23272f] dark:text-gray-200 opacity-90 leading-snug">
+                {feature.description}
+              </p>
+            </article>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+export default FeaturesGrid
