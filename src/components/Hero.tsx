@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
         {/* Hero content positioned in center-right area, far left on mobile */}
         <div className="max-w-2xl mx-4 sm:mx-auto lg:ml-auto lg:mr-[28rem] -mt-52 lg:-mt-[22rem]">
           {/* Small accent badge with liquid glass */}
-          <div className="glass-badge inline-block rounded-full mb-6 mt-2 sm:mt-0 overflow-hidden relative">
+          <div className="glass-badge inline-block rounded-full mb-6 mt-5 sm:mt-0 overflow-hidden relative">
             <div className="glass-filter"></div>
             <div className="glass-overlay"></div>
             <div className="glass-specular"></div>
