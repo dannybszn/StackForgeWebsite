@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
   const navRef = useRef<HTMLElement>(null)
   
   useEffect(() => {
-    let scrollTimeout: ReturnType<typeof setTimeout>
+    let scrollTimeout: NodeJS.Timeout
     
     function handleScroll() {
       // Add scrolling class when scrolling
