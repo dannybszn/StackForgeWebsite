@@ -32,10 +32,15 @@ const Hero: React.FC = () => {
       >
         {/* Hero content positioned in center-right area, far left on mobile */}
         <div className="max-w-2xl mx-4 sm:mx-auto lg:ml-auto lg:mr-[28rem] -mt-52 lg:-mt-[22rem]">
-          {/* Small accent badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 backdrop-blur-sm mb-6">
-            <Sparkles className="w-4 h-4 text-purple-400" />
-            <span className="text-sm font-medium text-purple-300">AI-Powered Platform</span>
+          {/* Small accent badge with liquid glass */}
+          <div className="glass-badge inline-block rounded-full mb-6 mt-2 sm:mt-0 overflow-hidden relative">
+            <div className="glass-filter"></div>
+            <div className="glass-overlay"></div>
+            <div className="glass-specular"></div>
+            <div className="glass-content">
+              <Sparkles className="inline-block w-4 h-4 text-purple-400 mr-2 align-middle" />
+              <span className="inline-block text-sm font-medium text-purple-300 align-middle">AI-Powered Platform</span>
+            </div>
           </div>
           
           {/* Main headline - shorter and punchier */}
