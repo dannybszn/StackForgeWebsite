@@ -53,7 +53,7 @@ const FeaturesGrid: React.FC = () => {
     const glassElements = document.querySelectorAll('.glass-card-dark')
     
     // Handle scroll to add blur effect
-    let scrollTimeout: NodeJS.Timeout
+    let scrollTimeout: ReturnType<typeof setTimeout>
     function handleScroll() {
       // Add blur class when scrolling
       glassElements.forEach(element => {
