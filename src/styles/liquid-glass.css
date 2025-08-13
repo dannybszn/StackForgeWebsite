@@ -84,6 +84,13 @@
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   background: transparent;
+  transition: backdrop-filter 0.15s ease-out;
+}
+
+/* Apply blur only when scrolling */
+.glass-card-dark.scrolling {
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
 }
 
 /* Glass Card Container - Light Mode (original) */
