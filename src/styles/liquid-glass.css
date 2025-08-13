@@ -124,6 +124,12 @@
   filter: url(#glass-distortion) saturate(110%) brightness(1);
 }
 
+/* Ensure navbar always has blur on all devices */
+.glass-nav .glass-filter {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
 .glass-card-dark .glass-filter {
   z-index: 1;
   backdrop-filter: blur(0px);

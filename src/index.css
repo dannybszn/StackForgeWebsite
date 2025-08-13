@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
-/* Mobile status bar area styling only */
+/* Ensure proper status bar blending on iOS */
 html {
   background: #0a0a0f;
 }
 
 body {
-  background: #0a0a0f;
+  background: linear-gradient(180deg, #0a0a0f 0%, #111827 100%);
   min-height: 100vh;
+  /* Add padding for iOS safe areas */
+  padding-top: env(safe-area-inset-top);
 }

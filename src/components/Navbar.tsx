@@ -13,6 +13,11 @@ const NAV_LINKS = [
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeLink, setActiveLink] = useState('Product')
+  
+  const handleNavClick = (name: string, e: React.MouseEvent) => {
+    e.preventDefault()
+    setActiveLink(name)
+  }
 
   return (
     <>
@@ -60,7 +65,7 @@ const Navbar: React.FC = () => {
                       <a
                         href={link.href}
                         className={`nav-item ${activeLink === link.name ? 'active' : ''}`}
-                        onClick={() => setActiveLink(link.name)}
+                        onClick={(e) => handleNavClick(link.name, e)}
                       >
                         {link.name}
                       </a>
