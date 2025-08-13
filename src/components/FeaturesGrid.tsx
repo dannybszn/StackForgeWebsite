@@ -54,22 +54,40 @@ const FeaturesGrid: React.FC = () => {
     
     // Handle scroll to add blur effect
     let scrollTimeout: ReturnType<typeof setTimeout>
+    let isScrolling = false
+    
     function handleScroll() {
       // Add blur class when scrolling
-      glassElements.forEach(element => {
-        element.classList.add('scrolling')
-      })
+      if (!isScrolling) {
+        isScrolling = true
+        glassElements.forEach(element => {
+          element.classList.add('scrolling')
+        })
+      }
       
       // Remove blur class after scrolling stops
       clearTimeout(scrollTimeout)
       scrollTimeout = setTimeout(() => {
+        isScrolling = false
         glassElements.forEach(element => {
           element.classList.remove('scrolling')
         })
-      }, 150)
+      }, 100) // Reduced timeout for better mobile response
     }
     
+    // Listen for both scroll and touch events for better mobile support
     window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('touchmove', handleScroll, { passive: true })
+    window.addEventListener('touchend', () => {
+      // Force remove blur after touch ends
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false
+        glassElements.forEach(element => {
+          element.classList.remove('scrolling')
+        })
+      }, 100)
+    }, { passive: true })
     
     // Handle mouse movement over glass elements
     function handleMouseMove(this: HTMLElement, e: MouseEvent) {
@@ -120,6 +138,8 @@ const FeaturesGrid: React.FC = () => {
     // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('touchmove', handleScroll)
+      window.removeEventListener('touchend', handleScroll)
       clearTimeout(scrollTimeout)
       glassElements.forEach(element => {
         element.removeEventListener('mousemove', handleMouseMove as EventListener)

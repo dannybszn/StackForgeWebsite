@@ -126,9 +126,15 @@
 
 .glass-card-dark .glass-filter {
   z-index: 1;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   filter: url(#glass-distortion-features) saturate(105%) brightness(0.95);
+  transition: backdrop-filter 0.1s ease-out, -webkit-backdrop-filter 0.1s ease-out;
+}
+
+.glass-card-dark.scrolling .glass-filter {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 .glass-distortion-overlay {
