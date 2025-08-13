@@ -1,1 +1,34 @@
 @import "tailwindcss";
+
+/* Ensure proper status bar blending on iOS */
+html {
+  background: #0a0a0f;
+}
+
+body {
+  background: linear-gradient(180deg, #0a0a0f 0%, #111827 100%);
+  min-height: 100vh;
+  /* Add padding for iOS safe areas */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Adjust navbar position for iOS safe area */
+.glass-nav {
+  top: env(safe-area-inset-top);
+}
+
+/* iOS status bar blur effect */
+@supports (-webkit-touch-callout: none) {
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 100;
+  }
+}
