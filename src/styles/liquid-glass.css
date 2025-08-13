@@ -13,9 +13,14 @@
 }
 
 /* Apply blur to nav only when scrolling */
+.glass-nav.scrolling {
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
 .glass-nav.scrolling .glass-filter {
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }
 
 .glass-filter,
@@ -91,14 +96,18 @@
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   background: transparent;
-  transition: backdrop-filter 0.1s ease-out;
-  -webkit-transition: -webkit-backdrop-filter 0.1s ease-out;
+  transition: backdrop-filter 0.15s ease-out;
 }
 
 /* Apply blur only when scrolling */
+.glass-card-dark.scrolling {
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+}
+
 .glass-card-dark.scrolling .glass-filter {
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }
 
 /* Glass Card Container - Light Mode (original) */
@@ -127,16 +136,12 @@
 
 .glass-filter {
   z-index: 1;
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
   filter: url(#glass-distortion) saturate(110%) brightness(1);
   transition: backdrop-filter 0.15s ease-out;
 }
 
 .glass-card-dark .glass-filter {
   z-index: 1;
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
   filter: url(#glass-distortion-features) saturate(105%) brightness(0.95);
   transition: backdrop-filter 0.15s ease-out;
 }
