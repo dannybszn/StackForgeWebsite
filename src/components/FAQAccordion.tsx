@@ -155,76 +155,8 @@ const FAQAccordion: React.FC = () => {
             key={faq.question}
             role="region"
             aria-labelledby={`faq-header-${idx}`}
-            className="relative rounded-2xl transition-all duration-500 hover:scale-[1.01] group"
-            style={{
-              overflow: 'hidden',
-              isolation: 'isolate',
-              background: `linear-gradient(135deg, 
-                rgba(255,255,255,0.03) 0%, 
-                rgba(255,255,255,0.01) 50%,
-                rgba(139,92,246,0.02) 100%)`,
-              backdropFilter: 'blur(20px) saturate(1.5)',
-              WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
-              boxShadow: isOpen ? `
-                inset 0 2px 4px 0 rgba(255,255,255,0.06),
-                inset 0 -2px 4px 0 rgba(139,92,246,0.03),
-                0 25px 50px -12px rgba(139,92,246,0.25),
-                0 12px 24px -8px rgba(0,0,0,0.4)
-              ` : `
-                inset 0 1px 2px 0 rgba(255,255,255,0.05),
-                inset 0 -1px 2px 0 rgba(139,92,246,0.02),
-                0 10px 20px -5px rgba(139,92,246,0.15),
-                0 4px 8px -2px rgba(0,0,0,0.3)
-              `,
-              border: '1px solid rgba(255,255,255,0.02)',
-            }}
+            className={`glass-accordion liquid-border relative transition-all duration-500 hover:scale-[1.01] group ${isOpen ? 'open' : ''}`}
           >
-            {/* Gradient border overlay - very subtle */}
-            <div 
-              className="absolute inset-0 rounded-2xl pointer-events-none opacity-30"
-              style={{
-                padding: '1px',
-                background: `linear-gradient(135deg, 
-                  rgba(255,255,255,${isOpen ? '0.06' : '0.03'}), 
-                  rgba(139,92,246,${isOpen ? '0.04' : '0.02'}),
-                  rgba(255,255,255,0.01))`,
-                mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                maskComposite: 'exclude',
-                WebkitMaskComposite: 'xor',
-              }}
-            />
-            
-            {/* Liquid glass shine effect - animated highlight */}
-            <div 
-              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-              style={{
-                background: `linear-gradient(115deg, 
-                  transparent 0%, 
-                  rgba(255,255,255,0.03) 45%, 
-                  rgba(255,255,255,0.08) 50%, 
-                  rgba(255,255,255,0.03) 55%,
-                  transparent 100%)`,
-                transform: 'translateX(-100%)',
-                animation: 'liquid-shine 3s ease-in-out infinite',
-              }}
-            />
-            
-            {/* Top highlight for depth - properly contained */}
-            <div 
-              className="absolute top-0 left-8 right-8 h-px opacity-50 pointer-events-none"
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
-              }}
-            />
-            
-            {/* Subtle inner glow */}
-            <div 
-              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                boxShadow: 'inset 0 0 20px rgba(139,92,246,0.05)',
-              }}
-            />
             <button
               ref={el => {
                 headersRef.current[idx] = el

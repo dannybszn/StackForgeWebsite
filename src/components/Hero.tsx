@@ -55,14 +55,14 @@ const Hero: React.FC = () => {
           <div className="flex flex-wrap gap-4">
             <a
               href="/download"
-              className="group inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold shadow-lg shadow-purple-900/30 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
+              className="glass-button group inline-flex items-center text-white font-semibold"
             >
               Download Now
               <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
             <a
               href="#learn-more"
-              className="inline-flex items-center px-6 py-3 rounded-xl border border-gray-700 bg-gray-900/50 backdrop-blur-sm text-gray-200 font-semibold transition-all duration-200 hover:bg-gray-800/50 hover:border-gray-600"
+              className="glass-button inline-flex items-center text-gray-200 font-semibold"
             >
               Watch Demo
             </a>

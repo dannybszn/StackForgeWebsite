@@ -92,65 +92,11 @@ const PricingSection: React.FC = () => {
           {/* Desktop: 3 cards, Pro centered and larger */}
           <div className="col-span-3 flex items-stretch">
             <div
-              className="relative flex flex-col rounded-2xl md:rounded-3xl transition-all duration-500 hover:scale-[1.01] group w-full h-full"
-              style={{
-                overflow: 'hidden',
-                isolation: 'isolate',
-                background: `linear-gradient(135deg, 
-                  rgba(255,255,255,0.03) 0%, 
-                  rgba(255,255,255,0.01) 50%,
-                  rgba(139,92,246,0.02) 100%)`,
-                backdropFilter: 'blur(20px) saturate(1.5)',
-                WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
-                boxShadow: `
-                  inset 0 1px 2px 0 rgba(255,255,255,0.05),
-                  inset 0 -1px 2px 0 rgba(139,92,246,0.02),
-                  0 10px 20px -5px rgba(139,92,246,0.15),
-                  0 4px 8px -2px rgba(0,0,0,0.3)
-                `,
-                border: '1px solid rgba(255,255,255,0.02)',
-              }}
+              className="glass-card liquid-border relative flex flex-col transition-all duration-500 group w-full h-full"
               tabIndex={0}
               aria-label="Starter plan"
             >
-              {/* Gradient border overlay */}
-              <div 
-                className="absolute inset-0 rounded-2xl md:rounded-3xl pointer-events-none opacity-30"
-                style={{
-                  padding: '1px',
-                  background: `linear-gradient(135deg, 
-                    rgba(255,255,255,0.03), 
-                    rgba(139,92,246,0.02),
-                    rgba(255,255,255,0.01))`,
-                  mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  maskComposite: 'exclude',
-                  WebkitMaskComposite: 'xor',
-                }}
-              />
               
-              {/* Liquid glass shine effect */}
-              <div 
-                className="absolute inset-0 rounded-2xl md:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                style={{
-                  background: `linear-gradient(115deg, 
-                    transparent 0%, 
-                    rgba(255,255,255,0.03) 45%, 
-                    rgba(255,255,255,0.08) 50%, 
-                    rgba(255,255,255,0.03) 55%,
-                    transparent 100%)`,
-                  transform: 'translateX(-100%)',
-                  animation: 'liquid-shine 3s ease-in-out infinite',
-                }}
-              />
-              
-              {/* Top highlight */}
-              <div 
-                className="absolute top-0 left-8 right-8 h-px opacity-50 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
-                }}
-              />
               <div className="flex flex-col flex-1 p-8 gap-6 pt-10 pb-8">
                 <h3 className="text-2xl md:text-3xl font-bold mb-2 text-slate-50 tracking-tight">
                   Starter
@@ -354,65 +300,11 @@ const PricingSection: React.FC = () => {
           </div>
           <div className="col-span-3 flex items-stretch">
             <div
-              className="relative flex flex-col rounded-2xl md:rounded-3xl transition-all duration-500 hover:scale-[1.01] group w-full h-full"
-              style={{
-                overflow: 'hidden',
-                isolation: 'isolate',
-                background: `linear-gradient(135deg, 
-                  rgba(255,255,255,0.03) 0%, 
-                  rgba(255,255,255,0.01) 50%,
-                  rgba(139,92,246,0.02) 100%)`,
-                backdropFilter: 'blur(20px) saturate(1.5)',
-                WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
-                boxShadow: `
-                  inset 0 1px 2px 0 rgba(255,255,255,0.05),
-                  inset 0 -1px 2px 0 rgba(139,92,246,0.02),
-                  0 10px 20px -5px rgba(139,92,246,0.15),
-                  0 4px 8px -2px rgba(0,0,0,0.3)
-                `,
-                border: '1px solid rgba(255,255,255,0.02)',
-              }}
+              className="glass-card liquid-border relative flex flex-col transition-all duration-500 group w-full h-full"
               tabIndex={0}
               aria-label="Lifetime plan"
             >
-              {/* Gradient border overlay */}
-              <div 
-                className="absolute inset-0 rounded-2xl md:rounded-3xl pointer-events-none opacity-30"
-                style={{
-                  padding: '1px',
-                  background: `linear-gradient(135deg, 
-                    rgba(255,255,255,0.03), 
-                    rgba(139,92,246,0.02),
-                    rgba(255,255,255,0.01))`,
-                  mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  maskComposite: 'exclude',
-                  WebkitMaskComposite: 'xor',
-                }}
-              />
               
-              {/* Liquid glass shine effect */}
-              <div 
-                className="absolute inset-0 rounded-2xl md:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                style={{
-                  background: `linear-gradient(115deg, 
-                    transparent 0%, 
-                    rgba(255,255,255,0.03) 45%, 
-                    rgba(255,255,255,0.08) 50%, 
-                    rgba(255,255,255,0.03) 55%,
-                    transparent 100%)`,
-                  transform: 'translateX(-100%)',
-                  animation: 'liquid-shine 3s ease-in-out infinite',
-                }}
-              />
-              
-              {/* Top highlight */}
-              <div 
-                className="absolute top-0 left-8 right-8 h-px opacity-50 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
-                }}
-              />
               <div className="flex flex-col flex-1 p-8 gap-6 pt-10 pb-8">
                 <h3 className="text-2xl md:text-3xl font-bold mb-2 text-slate-50 tracking-tight">
                   Lifetime
@@ -597,43 +489,10 @@ const PricingSection: React.FC = () => {
                     ))}
                   </ul>
                   <button
-                    className="mt-auto w-full relative flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-base md:text-lg text-white shadow-md transition-all duration-300 outline-none hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent active:scale-[0.98] overflow-hidden group/btn"
-                    style={{
-                      background: isPro 
-                        ? `linear-gradient(135deg, 
-                            rgba(109,40,217,0.5), 
-                            rgba(139,92,246,0.4))`
-                        : `linear-gradient(135deg, 
-                            rgba(109,40,217,0.4), 
-                            rgba(139,92,246,0.3))`,
-                      backdropFilter: isPro ? 'blur(25px) saturate(1.8)' : 'blur(20px) saturate(1.5)',
-                      WebkitBackdropFilter: isPro ? 'blur(25px) saturate(1.8)' : 'blur(20px) saturate(1.5)',
-                      border: isPro ? '1px solid rgba(139,92,246,0.3)' : '1px solid rgba(139,92,246,0.2)',
-                      boxShadow: isPro ? `
-                        inset 0 3px 6px 0 rgba(255,255,255,0.15),
-                        inset 0 -3px 6px 0 rgba(139,92,246,0.1),
-                        0 12px 30px rgba(109,40,217,0.3),
-                        0 6px 12px rgba(0,0,0,0.25),
-                        0 0 0 2px rgba(139,92,246,0.15)
-                      ` : `
-                        inset 0 2px 4px 0 rgba(255,255,255,0.1),
-                        inset 0 -2px 4px 0 rgba(139,92,246,0.05),
-                        0 8px 20px rgba(109,40,217,0.2),
-                        0 4px 8px rgba(0,0,0,0.2)
-                      `,
-                    }}
+                    className={`glass-button mt-auto w-full flex items-center justify-center font-semibold text-base md:text-lg text-white ${isPro ? 'border-purple-400/50' : ''}`}
                     tabIndex={0}
                   >
                     <span className="relative z-10">{plan.button}</span>
-                    {/* Gradient overlay for depth */}
-                    <div 
-                      className="absolute inset-0 rounded-xl pointer-events-none"
-                      style={{
-                        background: isPro 
-                          ? 'linear-gradient(135deg, rgba(255,255,255,0.15), transparent 40%, rgba(139,92,246,0.05) 100%)'
-                          : 'linear-gradient(135deg, rgba(255,255,255,0.1), transparent 50%)',
-                      }}
-                    />
                     {/* Animated shine */}
                     <div 
                       className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 rounded-xl"

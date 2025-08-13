@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Home from './pages/Home'
 import Download from './pages/Download'
+import './styles/liquid-glass.css'
 
 function App() {
   return (
