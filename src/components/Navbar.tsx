@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
 const NAV_LINKS = [
@@ -13,33 +13,6 @@ const NAV_LINKS = [
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeLink, setActiveLink] = useState('Product')
-  const navRef = useRef<HTMLElement>(null)
-  
-  useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout
-    
-    function handleScroll() {
-      // Add scrolling class when scrolling
-      if (navRef.current) {
-        navRef.current.classList.add('scrolling')
-      }
-      
-      // Remove scrolling class after scroll stops
-      clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        if (navRef.current) {
-          navRef.current.classList.remove('scrolling')
-        }
-      }, 150)
-    }
-    
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      clearTimeout(scrollTimeout)
-    }
-  }, [])
 
   return (
     <>
@@ -52,7 +25,6 @@ const Navbar: React.FC = () => {
       </svg>
 
       <nav 
-        ref={navRef}
         className="glass-nav sticky top-0 z-50 w-full"
         aria-label="Main navigation"
       >
