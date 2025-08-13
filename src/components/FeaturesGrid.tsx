@@ -52,6 +52,25 @@ const FeaturesGrid: React.FC = () => {
     // Get all glass elements
     const glassElements = document.querySelectorAll('.glass-card-dark')
     
+    // Handle scroll to add blur effect
+    let scrollTimeout: NodeJS.Timeout
+    function handleScroll() {
+      // Add blur class when scrolling
+      glassElements.forEach(element => {
+        element.classList.add('scrolling')
+      })
+      
+      // Remove blur class after scrolling stops
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(() => {
+        glassElements.forEach(element => {
+          element.classList.remove('scrolling')
+        })
+      }, 150)
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    
     // Handle mouse movement over glass elements
     function handleMouseMove(this: HTMLElement, e: MouseEvent) {
       const rect = this.getBoundingClientRect()
@@ -100,6 +119,8 @@ const FeaturesGrid: React.FC = () => {
     
     // Cleanup
     return () => {
+      window.removeEventListener('scroll', handleScroll)
+      clearTimeout(scrollTimeout)
       glassElements.forEach(element => {
         element.removeEventListener('mousemove', handleMouseMove as EventListener)
         element.removeEventListener('mouseleave', handleMouseLeave as EventListener)
